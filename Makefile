@@ -5,7 +5,7 @@
 # $FreeBSD: ports/www/rubygem-passenger/Makefile,v 1.9 2010/01/09 20:01:56 osa Exp $
 
 PORTNAME=	passenger
-PORTVERSION=	2.2.8
+PORTVERSION=	2.2.9
 CATEGORIES=	www rubygems
 MASTER_SITES=	RF
 PKGNAMEPREFIX=	rubygem-
