@@ -37,8 +37,7 @@ BUILD_DEPENDS+=	nginx>=0.7.64:${PORTSDIR}/www/nginx
 .endif
 
 BUILD_DEPENDS+=	rubygem-fastthread>=1.0.1:${PORTSDIR}/devel/rubygem-fastthread \
-		rubygem-rack>=1.0.0:${PORTSDIR}/www/rubygem-rack \
-		rubygem-rails>=2.3.4:${PORTSDIR}/www/rubygem-rails
+		rubygem-rack>=1.0.0:${PORTSDIR}/www/rubygem-rack
 
 SUB_LIST+=	GEM_LIB_DIR=${GEM_LIB_DIR} RUBY=${RUBY}
 SUB_FILES=	pkg-message
