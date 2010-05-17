@@ -13,8 +13,9 @@ PKGNAMEPREFIX=	rubygem-
 MAINTAINER=	jatzen@gmail.com
 COMMENT=	Modules for running Ruby on Rails and Rack applications
 
-OPTIONS=	APACHEPORT	"Use apache22"		on \
-		NGINXPORT	"Use nginx"		off
+OPTIONS=	APACHEPORT	"Use apache22"			on  \
+		NGINXPORT	"Use nginx"			off \
+		SYMLINK 	"Create 'passenger' symlink"	off
 
 USE_RUBY=	yes
 USE_RAKE=	yes
@@ -39,7 +40,7 @@ BUILD_DEPENDS+=	nginx>=0.7.64:${PORTSDIR}/www/nginx
 BUILD_DEPENDS+=	rubygem-fastthread>=1.0.1:${PORTSDIR}/devel/rubygem-fastthread \
 		rubygem-rack>=1.0.0:${PORTSDIR}/www/rubygem-rack
 
-SUB_LIST+=	GEM_LIB_DIR=${GEM_LIB_DIR} RUBY=${RUBY}
+SUB_LIST+=	RUBY=${RUBY}
 SUB_FILES=	pkg-message
 
 PLIST_FILES=	bin/passenger-config \
@@ -50,6 +51,16 @@ PLIST_FILES=	bin/passenger-config \
 		bin/passenger-status \
 		bin/passenger-stress-test \
 		bin/passenger-install-nginx-module
+.if defined(WITH_SYMLINK)
+PLIST_FILES+=	${GEMS_DIR}/${PORTNAME}
+SUB_LIST+=	PASSENGER_INSTALL_DIR="${PREFIX}/${GEMS_DIR}/${PORTNAME}"
+.endif
+
+.if !defined(WITH_SYMLINK)
+SUB_LIST+=	PASSENGER_INSTALL_DIR="${PREFIX}/${GEM_LIB_DIR}"
+.endif
+
+
 
 pre-patch:
 .if defined(WITH_NGINXPORT)
@@ -80,5 +91,9 @@ post-install:
 
 	${FIND} ${PREFIX}/${GEM_LIB_DIR} -name '*.o' -delete
 	${FIND} ${PREFIX}/${GEM_LIB_DIR} -name '*.bak' -delete
+
+.if defined(WITH_SYMLINK)
+	ln -s ${PREFIX}/${GEM_LIB_DIR} ${PREFIX}/${GEMS_DIR}/${PORTNAME}
+.endif
 
 .include <bsd.port.mk>
