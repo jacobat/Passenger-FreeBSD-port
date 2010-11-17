@@ -62,8 +62,6 @@ SUB_LIST+=	PASSENGER_INSTALL_DIR="${PREFIX}/${GEMS_DIR}/${PORTNAME}"
 SUB_LIST+=	PASSENGER_INSTALL_DIR="${PREFIX}/${GEM_LIB_DIR}"
 .endif
 
-
-
 pre-patch:
 .if defined(WITH_NGINXPORT)
 	@${ECHO_CMD}
@@ -95,7 +93,7 @@ post-install:
 	${FIND} ${PREFIX}/${GEM_LIB_DIR} -name '*.bak' -delete
 	${RM} ${PREFIX}/${GEM_LIB_DIR}/ext/libev/.libs/libev.la
 .if defined(WITH_SYMLINK)
-	ln -s ${PREFIX}/${GEM_LIB_DIR} ${PREFIX}/${GEMS_DIR}/${PORTNAME}
+	${LN} -s ${PREFIX}/${GEM_LIB_DIR} ${PREFIX}/${GEMS_DIR}/${PORTNAME}
 .endif
 
 .include <bsd.port.mk>
