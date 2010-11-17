@@ -5,9 +5,9 @@
 # $FreeBSD: ports/www/rubygem-passenger/Makefile,v 1.9 2010/01/09 20:01:56 osa Exp $
 
 PORTNAME=	passenger
-PORTVERSION=	2.2.11
+PORTVERSION=	3.0.0
 CATEGORIES=	www rubygems
-MASTER_SITES=	RF
+MASTER_SITES=	RG
 PKGNAMEPREFIX=	rubygem-
 
 MAINTAINER=	jatzen@gmail.com
@@ -38,16 +38,18 @@ BUILD_DEPENDS+=	nginx>=0.7.64:${PORTSDIR}/www/nginx
 .endif
 
 BUILD_DEPENDS+=	rubygem-fastthread>=1.0.1:${PORTSDIR}/devel/rubygem-fastthread \
-		rubygem-rack>=1.0.0:${PORTSDIR}/www/rubygem-rack
+		rubygem-rack>=1.0.0:${PORTSDIR}/www/rubygem-rack \
+		rubygem-daemon_controller>=0.2.5:${PORTSDIR}/devel/rubygem-daemon_controller \
+		curl>=7.20.0:${PORTSDIR}/ftp/curl
 
 SUB_LIST+=	RUBY=${RUBY}
 SUB_FILES=	pkg-message
 
-PLIST_FILES=	bin/passenger-config \
+PLIST_FILES=	bin/passenger \
+		bin/passenger-config \
 		bin/passenger-install-apache2-module \
 		bin/passenger-make-enterprisey \
 		bin/passenger-memory-stats \
-		bin/passenger-spawn-server \
 		bin/passenger-status \
 		bin/passenger-stress-test \
 		bin/passenger-install-nginx-module
@@ -91,7 +93,7 @@ post-install:
 
 	${FIND} ${PREFIX}/${GEM_LIB_DIR} -name '*.o' -delete
 	${FIND} ${PREFIX}/${GEM_LIB_DIR} -name '*.bak' -delete
-
+	${RM} ${PREFIX}/${GEM_LIB_DIR}/ext/libev/.libs/libev.la
 .if defined(WITH_SYMLINK)
 	ln -s ${PREFIX}/${GEM_LIB_DIR} ${PREFIX}/${GEMS_DIR}/${PORTNAME}
 .endif
