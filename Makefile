@@ -2,7 +2,7 @@
 # Date created:				Dec 18, 2008
 # Whom:					Jacob Atzen <jatzen@gmail.com>
 #
-# $FreeBSD: ports/www/rubygem-passenger/Makefile,v 1.9 2010/01/09 20:01:56 osa Exp $
+# $FreeBSD: ports/www/rubygem-passenger/Makefile,v 1.19 2010/11/25 12:04:24 wen Exp $
 
 PORTNAME=	passenger
 PORTVERSION=	3.0.0
@@ -40,6 +40,7 @@ BUILD_DEPENDS+=	nginx>=0.7.64:${PORTSDIR}/www/nginx
 BUILD_DEPENDS+=	rubygem-fastthread>=1.0.1:${PORTSDIR}/devel/rubygem-fastthread \
 		rubygem-rack>=1.0.0:${PORTSDIR}/www/rubygem-rack \
 		rubygem-daemon_controller>=0.2.5:${PORTSDIR}/devel/rubygem-daemon_controller \
+		rubygem-file-tail>0:${PORTSDIR}/devel/rubygem-file-tail \
 		curl>=7.20.0:${PORTSDIR}/ftp/curl
 
 SUB_LIST+=	RUBY=${RUBY}
